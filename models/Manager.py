@@ -4,7 +4,7 @@ import os
 class DataManager:
     @classmethod
     def Sobreescrever(cls, list_task: list[Tarefa]):
-        with open('data/Tasks.txt', 'w') as archive:
+        with open('data/Tasks.json', 'w') as archive:
             task_data = []
             for task in list_task:
                 # Converta o objeto Tarefa para um dicionário
@@ -16,21 +16,12 @@ class DataManager:
                 }
                 task_data.append(task_dict)  # Adicione o dicionário à lista
             json.dump(task_data, archive, indent=4)  # Salve a lista de dicionários em JSON
-    @classmethod
-    def Interpretar(cls, lista: list[str]):
-        if not len(lista) == 4:
-            return ''
-        good_info = []
-        for i in range(len(lista)):
-            variable_i_need = lista[i].split(' ')[1]
-            good_info.append(variable_i_need)
-        return good_info
     
     @classmethod
     def Read(cls) -> list[Tarefa]:
         tasks = []
         try:
-            with open('data/Tasks.txt', 'r') as archive:
+            with open('data/Tasks.json', 'r') as archive:
                 task_data = json.load(archive)  # Carregue os dados JSON do arquivo
                 for task_dict in task_data:
                     # Crie objetos Tarefa a partir dos dicionários
